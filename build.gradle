@@ -1,0 +1,39 @@
+plugins {
+  id 'org.springframework.boot' version '2.7.0'
+  id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+  id 'java'
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+
+  implementation (
+          'org.springframework.boot:spring-boot-starter-web:2.5.3',
+          'com.amazonaws.serverless:aws-serverless-java-container-springboot2:[1.0,)',
+          'org.springframework.boot:spring-boot-starter-data-jpa',
+          'mysql:mysql-connector-java',
+          'org.springframework.boot:spring-boot-starter-validation',
+          'com.amazonaws:aws-java-sdk-s3:1.12.230',
+          'commons-io:commons-io:2.11.0'
+  )
+
+  testImplementation("junit:junit:4.13.2")
+}
+
+sourceCompatibility = '1.11'
+targetCompatibility = '1.11'
+
+task buildZip(type: Zip) {
+  from compileJava
+  from processResources
+  into('lib') {
+    from(configurations.compileClasspath) {
+      exclude 'tomcat-embed-*'
+    }
+  }
+}
+
+build.dependsOn buildZip
