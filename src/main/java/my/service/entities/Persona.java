@@ -1,6 +1,5 @@
 package my.service.entities;
 
-import my.service.transporters.PersonaTrans;
 import my.service.wrappers.PersonaWrapper;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;

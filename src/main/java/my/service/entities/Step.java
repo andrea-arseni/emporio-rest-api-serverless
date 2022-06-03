@@ -2,7 +2,6 @@ package my.service.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.validation.annotation.Validated;
-
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

@@ -399,9 +399,8 @@ public class PersonaServiceImpl implements PersonaService {
     }
 
     private User retrieveUser(String userData){
-        User user = UserRetriever.retrieveUser(userData);
-        User userFound = this.userDAO.getOneUser(user.getId());
-        if(userFound==null) this.userDAO.addUser(user);
+        User userFound = this.userDAO.getOneUser(userData);
+        if(userFound==null) throw new BadRequestException("User non trovato");
         return userFound;
     }
 

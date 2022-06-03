@@ -16,10 +16,7 @@ public interface UserService {
 
     public UserTrans getOneUser(String id);
 
-    public User postUser(User user, String userData);
-
     public User patchUser(String id, User patchUser, String userData);
 
-    public String deleteUser(String id, String userData);
 
 }

@@ -80,7 +80,7 @@ public class ImmobileServiceImpl implements ImmobileService {
             whereClause = new QueryClause(" WHERE prezzo BETWEEN "+minimunPrice+" AND "+maximunPrice+ " AND status = 'ATTIVO' "+contrattoWhereClause+categoriaWhereClause, new HashMap<>());
         }else{
             // 3. se esiste check che sia effettivamente uno user
-            this.checkUserExistence(userData);
+            this.retrieveUser(userData);
             // 4. crea where clause normale
             whereClause = ListHandler.getQueryWhereClause(Immobile.class, filter, "", 0, value, startDate, endDate, min, max);
         }
@@ -120,7 +120,7 @@ public class ImmobileServiceImpl implements ImmobileService {
             immobile = immobili.get(0);
         }else{
             // 4. Se esiste user normal flow
-            this.checkUserExistence(userData);
+            this.retrieveUser(userData);
             immobile = this.getImmobileFromId(id);
         }
         ImmobileTrans res = new ImmobileTrans(immobile);
@@ -597,17 +597,10 @@ public class ImmobileServiceImpl implements ImmobileService {
         return immobile;
     }
 
-    private User retrieveUser(String userData) {
-        User user = UserRetriever.retrieveUser(userData);
-        User userFound = this.userDAO.getOneUser(user.getId());
-        if (userFound == null) this.userDAO.addUser(user);
-        return userFound;
-    }
-
-    private void checkUserExistence(String userData){
-        User user = UserRetriever.retrieveUser(userData);
-        User userFound = this.userDAO.getOneUser(user.getId());
+    private User retrieveUser(String userData){
+        User userFound = this.userDAO.getOneUser(userData);
         if (userFound == null) throw new BadRequestException("User sconosciuto, operazione annullata");
+        return userFound;
     }
 
     private File getFileFromId(Integer id, Immobile immobile) {

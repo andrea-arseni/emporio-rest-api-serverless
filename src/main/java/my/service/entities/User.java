@@ -1,10 +1,8 @@
 package my.service.entities;
 
 import my.service.types.UserType;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "user")

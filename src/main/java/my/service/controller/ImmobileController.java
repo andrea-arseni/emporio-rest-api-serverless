@@ -1,27 +1,16 @@
 package my.service.controller;
 
-import my.service.entities.CaratteristicheImmobile;
 import my.service.entities.File;
-import my.service.entities.Immobile;
 import my.service.entities.Log;
 import my.service.services.ImmobileService;
 import my.service.transporters.FileTrans;
 import my.service.transporters.ImmobileTrans;
-import my.service.utilities.BadRequestException;
 import my.service.utilities.ResponseList;
 import my.service.wrappers.ImmobileWrapper;
 import my.service.wrappers.StringWrapper;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/immobili")
@@ -31,9 +20,6 @@ public class ImmobileController {
     private ImmobileService immobileService;
 
     /* IMMOBILE PART */
-
-    /* Oltre al filtro normale solo per la query lista immobili ci sono anche i filtri dedicati
-    "contratto" (vendita e affitto) e "tipologia" (residenziale e commerciale) */
 
     @GetMapping("")
     public ResponseList getAllImmobili(
@@ -75,11 +61,6 @@ public class ImmobileController {
     @PostMapping("")
     public ImmobileTrans postImmobile(@RequestBody ImmobileWrapper immobileWrapper, @RequestHeader("x-amzn-oidc-data") String userData) {
         return this.immobileService.postImmobile(immobileWrapper, userData);
-    }
-
-    @PostMapping("/private")
-    public ImmobileTrans postImmobile(@RequestBody ImmobileWrapper immobileWrapper) {
-        return this.immobileService.postImmobile(immobileWrapper);
     }
 
     @PostMapping("/{id}/duplicate")
@@ -182,34 +163,3 @@ public class ImmobileController {
         return this.immobileService.deleteFile(idImmobile, id, userData);
     }
 }
-
-
-/* SNIPPET RIFERIMENTO NEL CASO SI VOLESSE USARE OBJECTNODE
-    @PostMapping("")
-    public Object postImmobile(@RequestBody ObjectNode reqBody) {
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            Immobile immobile = mapper.treeToValue(reqBody.get("immobile"), Immobile.class);
-            // check se l'immobile ha campi null allora throw badrequestexception
-            immobile.checkFieldNull();
-            CaratteristicheImmobile caratteristicheImmobile = mapper.treeToValue(reqBody.get("caratteristiche"), CaratteristicheImmobile.class);
-            immobile.setCaratteristicheImmobile(caratteristicheImmobile);
-            return this.immobileService.postImmobile(immobile);
-        } catch (JsonProcessingException e) {
-            throw new BadRequestException(e.getMessage());
-        }
-    }*/
-
-    /*@PatchMapping("/{id}")
-    public Object patchImmobile(@PathVariable Integer id, @RequestBody ObjectNode reqBody,
-                                @RequestHeader("x-amzn-oidc-data") String userData) {
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            Immobile immobile = mapper.treeToValue(reqBody.get("immobile"), Immobile.class);
-            CaratteristicheImmobile caratteristicheImmobile = mapper.treeToValue(reqBody.get("caratteristiche"), CaratteristicheImmobile.class);
-            immobile.setCaratteristicheImmobile(caratteristicheImmobile);
-            return this.immobileService.patchImmobile(id, immobile, userData);
-        } catch (JsonProcessingException e) {
-            throw new BadRequestException(e.getMessage());
-        }
-    }*/

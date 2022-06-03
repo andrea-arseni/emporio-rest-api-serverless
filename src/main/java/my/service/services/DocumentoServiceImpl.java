@@ -11,7 +11,6 @@ import my.service.types.UserType;
 import my.service.utilities.BadRequestException;
 import my.service.utilities.FileUtils;
 import my.service.utilities.ItemNotFoundException;
-import my.service.utilities.UserRetriever;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -132,9 +131,8 @@ public class DocumentoServiceImpl implements DocumentoService{
     }
 
     private User retrieveUser(String userData){
-        User user = UserRetriever.retrieveUser(userData);
-        User userFound = this.userDAO.getOneUser(user.getId());
-        if(userFound==null) this.userDAO.addUser(user);
+        User userFound = this.userDAO.getOneUser(userData);
+        if(userFound==null) throw new BadRequestException("User non trovato");
         return userFound;
     }
 }

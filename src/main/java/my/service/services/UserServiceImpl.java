@@ -45,18 +45,6 @@ public class UserServiceImpl implements UserService {
         return new UserTrans(userFound);
     }
 
-    /* Call disattivata - si crea lo user automaticamente al primo accesso */
-    @Override
-    @Transactional
-    public User postUser(User user, String userData) {
-        // se lo user non è admin non permettiamo la creazione nuovo user
-        User currentUser = this.getUser(userData);
-        if(!this.isUserAdmin(currentUser)) throw new ForbiddenException("User non abilitato ad effettuare l'operazione");
-        user.setFirstAccess(LocalDateTime.now());
-        user.setRole(UserType.NORMALE.name());
-        return this.userDAO.addUser(user);
-    }
-
     @Override
     @Transactional
     public User patchUser(String id, User patchUser, String userData) {
@@ -78,26 +66,8 @@ public class UserServiceImpl implements UserService {
         return originalUser;
     }
 
-    @Override
-    @Transactional
-    public String deleteUser(String id, String userData) {
-        // check user che vuoi cancellare esista
-        User user = this.userDAO.getOneUser(id);
-        if(user==null) throw new ItemNotFoundException("User con id "+id+" non presente");
-        // check che tu non sia lo stesso user, nel caso retrieve
-        User currentUser = UserRetriever.retrieveUser(userData);
-        if(!currentUser.getId().equalsIgnoreCase(user.getId())){
-            currentUser = this.userDAO.getOneUser(currentUser.getId());
-            if(!this.isUserAdmin(currentUser))
-                throw new ForbiddenException("User non abilitato ad effettuare l'operazione");
-        }
-        this.userDAO.deleteUser(user);
-        return "User con id "+id+" e nome "+user.getName()+" cancellato con successo";
-    }
-
     private User getUser(String userData){
-        User user = UserRetriever.retrieveUser(userData);
-        User userFound = this.userDAO.getOneUser(user.getId());
+        User userFound = this.userDAO.getOneUser(userData);
         if(userFound==null) throw new ItemNotFoundException("User non trovato");
         return userFound;
     }
