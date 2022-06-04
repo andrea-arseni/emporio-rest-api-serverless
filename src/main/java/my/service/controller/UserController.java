@@ -42,7 +42,7 @@ public class UserController {
     @PatchMapping("/{id}")
     public Object patchUser(@PathVariable String id,
                             @RequestBody User patchUser,
-                            @RequestHeader("x-amzn-oidc-data") String userData) {
+                            @RequestHeader("userid") String userData) {
         return this.userService.patchUser(id, patchUser, userData);
     }
 

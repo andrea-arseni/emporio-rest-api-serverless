@@ -47,24 +47,24 @@ public class ImmobileController {
             @RequestParam(defaultValue = "0") String priceMin,
             // chiave che definisce quale campo interrogare per il filtro
             @RequestParam(defaultValue = "10000000") String priceMax,
-            @RequestHeader(value = "x-amzn-oidc-data", required = false) String userData
+            @RequestHeader(value = "userid", required = false) String userData
     ) {
         return this.immobileService.getAllImmobili(filter, value, min, max, startDate, endDate,
                 sort, page, results, contratto, categoria, priceMin, priceMax, userData);
     }
 
     @GetMapping("/{id}")
-    public ImmobileTrans getSingleImmobile(@PathVariable Integer id, @RequestHeader(value="x-amzn-oidc-data", required = false) String userData) {
+    public ImmobileTrans getSingleImmobile(@PathVariable Integer id, @RequestHeader(value="userid", required = false) String userData) {
         return this.immobileService.getOneImmobile(id, userData);
     }
 
     @PostMapping("")
-    public ImmobileTrans postImmobile(@RequestBody ImmobileWrapper immobileWrapper, @RequestHeader("x-amzn-oidc-data") String userData) {
+    public ImmobileTrans postImmobile(@RequestBody ImmobileWrapper immobileWrapper, @RequestHeader("userid") String userData) {
         return this.immobileService.postImmobile(immobileWrapper, userData);
     }
 
     @PostMapping("/{id}/duplicate")
-    public ImmobileTrans copyImmobile(@PathVariable Integer id, @RequestHeader("x-amzn-oidc-data") String userData) {
+    public ImmobileTrans copyImmobile(@PathVariable Integer id, @RequestHeader("userid") String userData) {
         return this.immobileService.duplicateImmobile(id, userData);
     }
 
@@ -72,13 +72,13 @@ public class ImmobileController {
     public ImmobileTrans patchImmobile(
             @PathVariable Integer id,
             @RequestBody ImmobileWrapper immobile,
-            @RequestHeader("x-amzn-oidc-data") String userData) {
+            @RequestHeader("userid") String userData) {
         return this.immobileService.patchImmobile(id, immobile, userData);
     }
 
     @DeleteMapping("/{id}")
     public String deleteImmobile(@PathVariable Integer id,
-                                 @RequestHeader("x-amzn-oidc-data") String userData) {
+                                 @RequestHeader("userid") String userData) {
         return this.immobileService.deleteImmobile(id, userData);
     }
 
@@ -112,7 +112,7 @@ public class ImmobileController {
     @PostMapping("/{idImmobile}/logs")
     public Log postLog(@PathVariable Integer idImmobile,
                        @RequestBody Log log,
-                       @RequestHeader("x-amzn-oidc-data") String userData) {
+                       @RequestHeader("userid") String userData) {
         return this.immobileService.addLog(idImmobile, log.getAzione(), userData);
     }
 
@@ -120,14 +120,14 @@ public class ImmobileController {
     public Log patchLog(@PathVariable Integer idImmobile,
                         @PathVariable Integer id,
                         @RequestBody Log patchLog,
-                        @RequestHeader("x-amzn-oidc-data") String userData) {
+                        @RequestHeader("userid") String userData) {
         return this.immobileService.patchLog(idImmobile, id, patchLog.getAzione(), userData);
     }
 
     @DeleteMapping("/{idImmobile}/logs/{id}")
     public String deleteLog(@PathVariable Integer idImmobile,
                             @PathVariable Integer id,
-                            @RequestHeader("x-amzn-oidc-data") String userData){
+                            @RequestHeader("userid") String userData){
         return this.immobileService.deleteLog(idImmobile, id, userData);
     }
 
@@ -144,7 +144,7 @@ public class ImmobileController {
     @PostMapping(path ="/{idImmobile}/files", consumes = {"multipart/form-data"})
     public File postFile(@PathVariable Integer idImmobile,
                          @RequestParam(name = "file") MultipartFile multipartFile,
-                         @RequestHeader("x-amzn-oidc-data") String userData) {
+                         @RequestHeader("userid") String userData) {
         return this.immobileService.addFile(idImmobile, multipartFile, userData);
     }
 
@@ -152,14 +152,14 @@ public class ImmobileController {
     public File patchFile(@PathVariable Integer idImmobile,
                         @PathVariable Integer id,
                         @RequestBody StringWrapper patchFile,
-                          @RequestHeader("x-amzn-oidc-data") String userData) {
+                          @RequestHeader("userid") String userData) {
         return this.immobileService.patchFile(idImmobile, id, patchFile, userData);
     }
 
     @DeleteMapping("/{idImmobile}/files/{id}")
     public String deleteFile(@PathVariable Integer idImmobile,
                             @PathVariable Integer id,
-                            @RequestHeader("x-amzn-oidc-data") String userData){
+                            @RequestHeader("userid") String userData){
         return this.immobileService.deleteFile(idImmobile, id, userData);
     }
 }

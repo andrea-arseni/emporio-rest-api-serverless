@@ -51,7 +51,7 @@ public class PersonaController {
 
     @PostMapping("{idPersona}/eventi")
     public EventoTrans postEvent(@PathVariable Integer idPersona,
-                            @RequestHeader("x-amzn-oidc-data") String userData,
+                            @RequestHeader("userid") String userData,
                             @RequestBody EventoWrapper eventoWrapper) {
         return this.personaService.addEvento(idPersona, eventoWrapper, userData);
     }
@@ -59,7 +59,7 @@ public class PersonaController {
     @PatchMapping("{idPersona}/eventi/{id}")
     public EventoTrans patchEvent(@PathVariable Integer idPersona,
                              @PathVariable Integer id,
-                             @RequestHeader("x-amzn-oidc-data") String userData,
+                             @RequestHeader("userid") String userData,
                              @RequestBody EventoWrapper eventoWrapper) {
         return this.personaService.patchEvento(idPersona, id, eventoWrapper, userData);
     }
@@ -67,7 +67,7 @@ public class PersonaController {
     @DeleteMapping("{idPersona}/eventi/{id}")
     public String deleteEvent(@PathVariable Integer idPersona,
                               @PathVariable Integer id,
-                              @RequestHeader("x-amzn-oidc-data") String userData) {
+                              @RequestHeader("userid") String userData) {
         return this.personaService.deleteEvento(idPersona, id, userData);
     }
 
@@ -80,14 +80,14 @@ public class PersonaController {
     @PostMapping(path ="/{idPersona}/files", consumes = {"multipart/form-data"})
     public File postFile(@PathVariable Integer idPersona,
                          @RequestParam(name = "file") MultipartFile multipartFile,
-                         @RequestHeader("x-amzn-oidc-data") String userData) {
+                         @RequestHeader("userid") String userData) {
         return this.personaService.addFile(idPersona, multipartFile, userData);
     }
 
     @DeleteMapping("/{idPersona}/files/{id}")
     public String deleteFile(@PathVariable Integer idPersona,
                              @PathVariable Integer id,
-                             @RequestHeader("x-amzn-oidc-data") String userData){
+                             @RequestHeader("userid") String userData){
         return this.personaService.deleteFile(idPersona, id, userData);
     }
 
@@ -111,7 +111,7 @@ public class PersonaController {
     public PersonaTrans postPersona(
             @RequestBody PersonaWrapper personaWrapper,
             @RequestParam(defaultValue = "false") String forceOperation,
-            @RequestHeader("x-amzn-oidc-data") String userData
+            @RequestHeader("userid") String userData
             ) {
         return this.personaService.addPersona(personaWrapper, userData, forceOperation);
     }
@@ -128,14 +128,14 @@ public class PersonaController {
             @PathVariable Integer id,
             @RequestBody PersonaWrapper personaWrapper,
             @RequestParam(defaultValue = "false") String forceOperation,
-            @RequestHeader("x-amzn-oidc-data") String userData
+            @RequestHeader("userid") String userData
     ) {
         return this.personaService.patchPersona(id, personaWrapper, userData, forceOperation);
     }
 
     @DeleteMapping("{id}")
     public String deletePersona(@PathVariable Integer id,
-                                @RequestHeader("x-amzn-oidc-data") String userData) {
+                                @RequestHeader("userid") String userData) {
         return this.personaService.deletePersona(id, userData);
     }
 

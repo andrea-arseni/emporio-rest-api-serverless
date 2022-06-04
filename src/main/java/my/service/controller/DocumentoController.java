@@ -29,7 +29,7 @@ public class DocumentoController {
     @PostMapping(path = "", consumes = {"multipart/form-data"})
     public File postDocumento(
             @RequestParam(name = "file") MultipartFile multipartFile,
-            @RequestHeader("x-amzn-oidc-data") String userData,
+            @RequestHeader("userid") String userData,
             @RequestParam(name = "name") String name
             ) {
         return this.documentoService.addFile(multipartFile, name, userData);
@@ -37,7 +37,7 @@ public class DocumentoController {
 
     @PatchMapping("/{id}")
     public File renameDocumento(
-            @RequestHeader("x-amzn-oidc-data") String userData,
+            @RequestHeader("userid") String userData,
             @RequestBody StringWrapper name,
             @PathVariable Integer id
     ) {
@@ -46,7 +46,7 @@ public class DocumentoController {
 
     @DeleteMapping("/{id}")
     public String deleteDocumento(
-            @RequestHeader("x-amzn-oidc-data") String userData,
+            @RequestHeader("userid") String userData,
             @PathVariable Integer id) {
         return this.documentoService.deleteFile(id, userData);
     }
