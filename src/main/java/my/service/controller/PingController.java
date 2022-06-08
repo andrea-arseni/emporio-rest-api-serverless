@@ -8,7 +8,7 @@ import java.util.Map;
 @RestController
 public class PingController {
 
-    @GetMapping("/")
+    @GetMapping("/ping")
     public Map<String, String> ping() {
         Map<String, String> res = new HashMap<>();
         res.put("Response", "Welcome to the Emporio Case API");
