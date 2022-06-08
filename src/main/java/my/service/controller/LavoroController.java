@@ -47,18 +47,18 @@ public class LavoroController {
 
     @PostMapping("{idLavoro}/steps")
     public Step postStep(@PathVariable Integer idLavoro,
-                           @Valid @RequestBody StepWrapper stepWrapper, @RequestHeader("x-amzn-oidc-data") String userData) {
+                           @Valid @RequestBody StepWrapper stepWrapper, @RequestHeader("userId") String userData) {
         return this.lavoroService.postStep(idLavoro, stepWrapper, userData);
     }
 
     @PatchMapping("/{idLavoro}/steps/{id}")
     public Step patchStep(@PathVariable Integer idLavoro, @PathVariable Integer id, @RequestBody Step patchStep,
-                          @RequestHeader("x-amzn-oidc-data") String userData) {
+                          @RequestHeader("userId") String userData) {
         return this.lavoroService.patchStep(idLavoro, id, patchStep, userData);
     }
 
     @DeleteMapping("/{idLavoro}/steps/{id}")
-    public String deleteStep(@PathVariable Integer idLavoro, @PathVariable Integer id, @RequestHeader("x-amzn-oidc-data") String userData) {
+    public String deleteStep(@PathVariable Integer idLavoro, @PathVariable Integer id, @RequestHeader("userId") String userData) {
         return this.lavoroService.deleteStep(idLavoro, id, userData);
     }
 
@@ -85,20 +85,20 @@ public class LavoroController {
     }
 
     @PostMapping("")
-    public Object postLavoro(@RequestBody Lavoro lavoro, @RequestHeader("x-amzn-oidc-data") String userData) {
+    public Object postLavoro(@RequestBody Lavoro lavoro, @RequestHeader("userId") String userData) {
         return this.lavoroService.postLavoro(lavoro, userData);
     }
 
     @PatchMapping("/{id}")
     public Object patchLavoro(@PathVariable Integer id,
                               @RequestBody Lavoro patchLavoro,
-                              @RequestHeader("x-amzn-oidc-data") String userData) {
+                              @RequestHeader("userId") String userData) {
         return this.lavoroService.patchLavoro(id, patchLavoro, userData);
     }
 
     @DeleteMapping("/{id}")
     public String deleteLavoro(@PathVariable Integer id,
-                               @RequestHeader("x-amzn-oidc-data") String userData) {
+                               @RequestHeader("userId") String userData) {
         return this.lavoroService.deleteLavoro(id, userData);
     }
 

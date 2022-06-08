@@ -50,7 +50,7 @@ public class VisitaController {
     @PostMapping("")
     public VisitaTrans postVisita(
             @RequestBody VisitaWrapper visitaWrapper,
-            @RequestHeader("x-amzn-oidc-data") String userData
+            @RequestHeader("userId") String userData
             ) {
         return this.visitaService.addVisita(visitaWrapper, userData);
     }
@@ -59,14 +59,14 @@ public class VisitaController {
     public VisitaTrans patchVisita(
             @RequestBody VisitaWrapper visitaWrapper,
             @PathVariable Integer id,
-            @RequestHeader("x-amzn-oidc-data") String userData
+            @RequestHeader("userId") String userData
     ) {
         return this.visitaService.patchVisita(id, visitaWrapper, userData);
     }
 
     @DeleteMapping("{id}")
     public String deleteVisita(@PathVariable Integer id,
-                               @RequestHeader("x-amzn-oidc-data") String userData) {
+                               @RequestHeader("userId") String userData) {
         return this.visitaService.deleteVisita(id, userData);
     }
 

@@ -29,7 +29,7 @@ public class Lavoro {
     private String status;
 
     @OneToMany(mappedBy = "lavoro", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonManagedReference(value="steps")
     private List<Step> steps;
 
     public Lavoro() {}

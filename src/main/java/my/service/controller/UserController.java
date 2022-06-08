@@ -43,7 +43,7 @@ public class UserController {
     /*@PostMapping("")
     public Object postUser(
             @RequestBody User user,
-            @RequestHeader("x-amzn-oidc-data") String userData
+            @RequestHeader("userId") String userData
     ) {
         return this.userService.postUser(user, userData);
     }*/
@@ -51,13 +51,13 @@ public class UserController {
     @PatchMapping("/{id}")
     public Object patchUser(@PathVariable String id,
                             @RequestBody User patchUser,
-                            @RequestHeader("x-amzn-oidc-data") String userData) {
+                            @RequestHeader("userId") String userData) {
         return this.userService.patchUser(id, patchUser, userData);
     }
 
     @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable String id,
-                             @RequestHeader("x-amzn-oidc-data") String userData
+                             @RequestHeader("userId") String userData
                              ) {
         return this.userService.deleteUser(id, userData);
     }

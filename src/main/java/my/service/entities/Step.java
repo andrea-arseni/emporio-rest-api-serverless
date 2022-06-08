@@ -28,7 +28,7 @@ public class Step {
 
     @ManyToOne
     @JoinColumn(name="lavoro")
-    @JsonBackReference
+    @JsonBackReference(value="steps")
     private Lavoro lavoro;
 
     @ManyToOne

@@ -22,7 +22,7 @@ public class Evento {
 
     @ManyToOne
     @JoinColumn(name="persona")
-    @JsonBackReference
+    @JsonBackReference(value="eventi")
     private Persona persona;
 
     @ManyToOne

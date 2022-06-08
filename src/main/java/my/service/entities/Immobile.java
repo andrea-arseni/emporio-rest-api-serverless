@@ -122,11 +122,11 @@ public class Immobile {
     private CaratteristicheImmobile caratteristicheImmobile;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "immobile")
-    @JsonManagedReference
+    @JsonManagedReference(value="logs")
     private List<Log> logs;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "immobile")
-    @JsonManagedReference
+    @JsonManagedReference(value="immobileFiles")
     private List<File> files;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "immobileInquilino")

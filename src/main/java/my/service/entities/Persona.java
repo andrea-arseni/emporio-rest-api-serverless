@@ -58,11 +58,11 @@ public class Persona {
     private List<Immobile> immobili;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona", fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonManagedReference(value="eventi")
     private List<Evento> eventi;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "persona")
-    @JsonManagedReference
+    @JsonManagedReference(value="personaFiles")
     private List<File> files;
 
     @Column(name = "data_uscita")

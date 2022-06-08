@@ -35,7 +35,7 @@ public class BudgetController {
             @RequestParam(defaultValue = "0") Integer page,
             // numero di elementi per pagina
             @RequestParam(defaultValue = "20") Integer results,
-            @RequestHeader("x-amzn-oidc-data") String userData
+            @RequestHeader("userId") String userData
             ) {
 
         return budgetService.getAllOperations(
@@ -53,14 +53,14 @@ public class BudgetController {
 
     @GetMapping("/{id}")
     public Budget getBudget(@PathVariable Integer id,
-                            @RequestHeader("x-amzn-oidc-data") String userData) {
+                            @RequestHeader("userId") String userData) {
         return budgetService.getOneOperation(id, userData);
     }
 
     @PostMapping("")
     public Budget postBudget(
             @RequestBody Budget budget,
-            @RequestHeader("x-amzn-oidc-data") String userData
+            @RequestHeader("userId") String userData
     ) {
         return budgetService.postOperation(budget, userData);
     }
@@ -68,14 +68,14 @@ public class BudgetController {
     @PatchMapping("/{id}")
     public Budget patchBudget(@PathVariable Integer id,
                               @RequestBody Budget operazione,
-                              @RequestHeader("x-amzn-oidc-data") String userData) {
+                              @RequestHeader("userId") String userData) {
         // indipendentemente dal JSON passato dal Client Spring considera solo gli attributi della classe in questione
         return budgetService.patchOperation(id, operazione, userData);
     }
 
     @DeleteMapping("/{id}")
     public String deleteBudget(@PathVariable Integer id,
-                               @RequestHeader("x-amzn-oidc-data") String userData) {
+                               @RequestHeader("userId") String userData) {
         return budgetService.deleteOperation(id, userData);
     }
 }

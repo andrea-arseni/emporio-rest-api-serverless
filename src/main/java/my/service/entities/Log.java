@@ -28,7 +28,7 @@ public class Log {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="immobile")
-    @JsonBackReference
+    @JsonBackReference(value="logs")
     private Immobile immobile;
 
     @ManyToOne

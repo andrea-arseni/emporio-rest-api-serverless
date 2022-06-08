@@ -24,12 +24,12 @@ public class File {
 
     @ManyToOne
     @JoinColumn(name="immobile")
-    @JsonBackReference(value="immobile")
+    @JsonBackReference(value="immobileFiles")
     private Immobile immobile;
 
     @ManyToOne
     @JoinColumn(name="persona")
-    @JsonBackReference(value="persona")
+    @JsonBackReference(value="personaFiles")
     private Persona persona;
 
     public File() {}
